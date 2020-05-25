@@ -1,5 +1,4 @@
 import {gql} from 'apollo-server-express';
-import messageSchema from './message';
 import userSchema from './user';
 
 const baseSchema =  gql`
@@ -17,4 +16,4 @@ type Subscription {
   _: Boolean
 }
 `;
-export default [baseSchema, userSchema, messageschema]
+export default [baseSchema, userSchema]

@@ -5,6 +5,5 @@ const customScalarResolver = {
   };
 
 import userResolver from './user';
-import messageResolver from './message';
 
-export default [customScalarResolver, userResolver, messageResolver]
+export default [customScalarResolver, userResolver]
