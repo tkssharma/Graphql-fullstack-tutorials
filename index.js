@@ -1,51 +1,26 @@
-import 'dotenv/config';
-import cors from 'cors';
-import morgan from 'morgan';
-import http from 'http';
-import jwt from 'jsonwebtoken';
-import DataLoader from 'dataloader';
-import express from 'express';
-import {
+require('dotenv/config');
+const cors = require('cors');
+const http = require('http');
+const jwt = require('jsonwebtoken');
+const express = require('express');
+const {
   ApolloServer,
   AuthenticationError,
-} from 'apollo-server-express';
+} = require('apollo-server-express');
 
-import schema from './src/schema/index';
-import resolvers from './src/resolvers/index';
-import models, { connectMongo } from './src/model';
+const schema = require('./data/schema');
+const resolvers = require('./data/resolvers');
 
 const app = express();
 
 app.use(cors());
 
-app.use(morgan('dev'));
-
-const getMe = async req => {
-  const token = req.headers['x-token'];
-
-  if (token) {
-    try {
-      return await jwt.verify(token, process.env.SECRET);
-    } catch (e) {
-      throw new AuthenticationError(
-        'Your session expired. Sign in again.',
-      );
-    }
-  }
-};
-
 const server = new ApolloServer({
   introspection: true,
-  typeDefs: schema,
-  resolvers,
-  context: async ({ req, connection }) => {
-      const me = await getMe(req);
-      return {
-        models,
-        me,
-        secret: process.env.SECRET,
-      };
-  },
+  schema,
+  context: async (req) => {
+    authUser: req.user
+}
 });
 
 server.applyMiddleware({ app, path: '/graphql' });
@@ -55,9 +30,6 @@ server.installSubscriptionHandlers(httpServer);
 
 const port = process.env.PORT || 3000;
 
-connectMongo().then(async () => {
-
-  httpServer.listen({ port }, () => {
+httpServer.listen({ port }, () => {
     console.log(`Apollo Server on http://localhost:${port}/graphql`);
-  });
 });
