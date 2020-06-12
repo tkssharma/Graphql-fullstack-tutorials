@@ -1,5 +1,4 @@
-import {gql} from 'apollo-server-express';
-import userSchema from './user';
+const {gql} = require('apollo-server-express');
 
 const baseSchema =  gql`
 scalar Date
@@ -16,4 +15,4 @@ type Subscription {
   _: Boolean
 }
 `;
-export default [baseSchema, userSchema]
+module.exports =  [baseSchema]

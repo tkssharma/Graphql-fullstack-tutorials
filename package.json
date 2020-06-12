@@ -26,6 +26,7 @@
     "express": "^4.16.4",
     "express-jwt": "^5.3.0",
     "graphql": "^14.0.2",
+    "graphql-iso-date": "^3.6.1",
     "graphql-tools": "^2.3.0",
     "jsonwebtoken": "^8.1.0",
     "mysql2": "^1.4.2",
