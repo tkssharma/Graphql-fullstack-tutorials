@@ -3,19 +3,22 @@ services:
     node:
         build: .
         ports:
-            - 3000:3000
+            - 4001:3000
         volumes:
             - ./:/usr/src/app
+            - /usr/src/app/node_modules
         depends_on:
-            - mongo
-    mongo:
-        image: mongo
-        container_name: global-mongo-service
-        restart: unless-stopped
+            - db
+    db:
+        image: mysql:5.7
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: test1
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
         volumes:
-            - mongo_data:/data/configdb
-            - mongo_data:/data/db
+        - mysql-data:/var/lib/mysql 
         ports:
-            - 27017:27017        
+            - 3306:3306                 
 volumes:
-    mongo_data: {}
+    mysql-data: {}

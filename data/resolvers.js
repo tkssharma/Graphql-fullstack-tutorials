@@ -105,7 +105,6 @@ const resolvers = {
             const user = await User.findOne({ where: { id: authUser.id } });
 
             const post = await Post.create({
-                userId: user.id,
                 title,
                 slug: slugify(title, { lower: true }),
                 content,

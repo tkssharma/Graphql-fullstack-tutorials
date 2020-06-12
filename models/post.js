@@ -8,10 +8,6 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       allowNull: false
     },
-    userId: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
-    },
     title: {
       type: DataTypes.STRING,
       allowNull: false

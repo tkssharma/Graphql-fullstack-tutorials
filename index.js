@@ -7,9 +7,12 @@ const {
   ApolloServer,
   AuthenticationError,
 } = require('apollo-server-express');
-
+const connection = require('./models/index.js');
 const schema = require('./data/schema');
 const resolvers = require('./data/resolvers');
+connection.sequelize.sync({
+  force: true
+});
 
 const app = express();
 
