@@ -7,12 +7,8 @@ const {
   ApolloServer,
   AuthenticationError,
 } = require('apollo-server-express');
-const connection = require('./models/index.js');
-const schema = require('./data/schema');
-const resolvers = require('./data/resolvers');
-connection.sequelize.sync({
-  force: false
-});
+const schema = require('./src/schema');
+const resolvers = require('./src/resolvers');
 
 const app = express();
 
@@ -20,7 +16,8 @@ app.use(cors());
 
 const server = new ApolloServer({
   introspection: true,
-  schema,
+  typeDefs: schema,
+  resolvers,
   context: async (req) => {
     authUser: req.user
 }
