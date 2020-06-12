@@ -4,7 +4,7 @@
   "description": "GraphQL and Apollo server",
   "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "sequelize:create-migration": "sequelize migration:create",
     "sequelize:migrate": "sequelize db:migrate"
@@ -29,6 +29,7 @@
     "graphql-tools": "^2.3.0",
     "jsonwebtoken": "^8.1.0",
     "mysql2": "^1.4.2",
+    "nodemon": "^2.0.4",
     "sequelize": "^5.21.1",
     "sequelize-cli": "^5.5.0",
     "sequelize-encrypted": "^0.1.0",

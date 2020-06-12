@@ -11,7 +11,7 @@ const connection = require('./models/index.js');
 const schema = require('./data/schema');
 const resolvers = require('./data/resolvers');
 connection.sequelize.sync({
-  force: true
+  force: false
 });
 
 const app = express();

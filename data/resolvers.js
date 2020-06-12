@@ -2,18 +2,17 @@
 
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
-const { User, Post, Tag } = require('../models');
-const bcrypt = require('bcrypt');
+const DB = require('../models');
+// const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const slugify = require('slugify');
 require('dotenv').config();
-
 // Define resolvers
 const resolvers = {
     Query: {
         // Fetch all users
         async allUsers() {
-           return await User.all();
+           return await DB.User.findAll({});
         },
 
         // Get a user by it ID
