@@ -9,7 +9,6 @@
     "sequelize:create-migration": "sequelize migration:create --name Category",
     "migrate": "sequelize db:migrate",
     "create": "sequelize db:create"
-
   },
   "repository": {
     "type": "git"

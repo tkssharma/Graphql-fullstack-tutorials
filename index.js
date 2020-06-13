@@ -15,15 +15,36 @@ const resolvers = require('./src/resolvers');
 const app = express();
 
 app.use(cors());
+DB.sequelize.sync({
+  force: false
+});
 
 const server = new ApolloServer({
   introspection: true,
   typeDefs: schema,
   resolvers,
-  context: async (req) => {
-    authUser: req.user
-}
+  context: async ({req}) => {
+    const authUser = await getUser(req);
+    console.log(authUser);
+    return {
+      authUser
+    }
+  }
 });
+
+const getUser = async (req) => {
+   const token = req.headers['x-token'];
+   if(token){
+     try {
+       return await jwt.verify(token, process.env.JWT_SECRET) 
+     }catch(e){
+        throw new AuthenticationError('Your session expired')
+     }
+   }
+}
+
+
+
 
 server.applyMiddleware({ app, path: '/graphql' });
 const httpServer = http.createServer(app);
