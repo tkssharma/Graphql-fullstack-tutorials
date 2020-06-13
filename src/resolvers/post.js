@@ -9,7 +9,7 @@ require('dotenv').config();
 module.exports = {
     Query: {
         async allPost() {
-            return await DB.Post.findAll({});
+            return await DB.Post.all({});
          },
          async fetchPost(_, {id }, {authUser} ) {
             return await DB.Post.findById(id);
@@ -19,14 +19,15 @@ module.exports = {
               // Add a new post
               async addPost(_, { title, content, status, tags }, { authUser }) {
     
-                const user = await User.findOne({ where: { id: authUser.id } });
+                const user = await DB.User.findOne({ where: { id: authUser.id } });
     
-                const post = await Post.create({
+                const post = await DB.Post.create({
                     title,
                     slug: slugify(title, { lower: true }),
                     content,
                     status
                 });
+                console.log(post);
     
                 // Assign tags to post
                 await post.setTags(tags);
@@ -42,7 +43,7 @@ module.exports = {
                 }
     
                 // fetch the post by it ID
-                const post = await Post.findById(id);
+                const post = await DB.Post.findById(id);
     
                 // Update the post
                 await post.update({
@@ -66,7 +67,7 @@ module.exports = {
                 }
     
                 // fetch the post by it ID
-                const post = await Post.findById(id);
+                const post = await DB.Post.findById(id);
     
                 return await post.destroy();
             }

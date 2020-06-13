@@ -1,5 +1,7 @@
 'use strict';
-
+const {
+  ApolloError
+} = require('apollo-server-express');
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
 const DB = require('../../models');
@@ -46,6 +48,7 @@ module.exports = {
             if(!authUser){
               throw new Error('You Must Login First')
             }
+            try {
             const user = await DB.User.findById(id);
             if(!user){
                 throw new Error('No User foudn for update, please check userid')
@@ -55,6 +58,9 @@ module.exports = {
                 lastName
             });
             return user;
+            }catch(err){
+              throw new ApolloError('custm message')
+            }
           }    
     }
 }

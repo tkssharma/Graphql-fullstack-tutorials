@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const {
   ApolloServer,
-  AuthenticationError,
+  AuthenticationError
 } = require('apollo-server-express');
 const DB = require('./models/index.js');
 
