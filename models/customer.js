@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Tag = sequelize.define('Tag', {
+    const Customer = sequelize.define('Customer', {
       id: {
         type: DataTypes.UUID,
         primaryKey: true,
@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: false,
       },
       name: DataTypes.STRING,
-      description: DataTypes.STRING,
+      email: DataTypes.STRING,
     });
-
-    Tag.associate = models => {
-        Tag.belongsToMany(models.Product, { through: 'ProductTags'});
+  
+    Customer.associate = models => {
+        Customer.hasMany(models.Order);
     };
-    return Tag;
+    return Customer;
   };

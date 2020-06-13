@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Tag = sequelize.define('Tag', {
+    const Payment = sequelize.define('Payment', {
       id: {
         type: DataTypes.UUID,
         primaryKey: true,
@@ -7,12 +7,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: false,
       },
-      name: DataTypes.STRING,
-      description: DataTypes.STRING,
+      status: DataTypes.STRING,
+      amount: DataTypes.DECIMAL,
     });
-
-    Tag.associate = models => {
-        Tag.belongsToMany(models.Product, { through: 'ProductTags'});
+  
+    Payment.associate = models => {
+      Payment.hasOne(models.Order);
     };
-    return Tag;
-  };
+  
+    return Payment;
+}
