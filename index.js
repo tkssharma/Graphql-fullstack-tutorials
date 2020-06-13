@@ -7,6 +7,8 @@ const {
   ApolloServer,
   AuthenticationError,
 } = require('apollo-server-express');
+const DB = require('./models/index.js');
+
 const schema = require('./src/schema');
 const resolvers = require('./src/resolvers');
 
@@ -24,7 +26,9 @@ const server = new ApolloServer({
 });
 
 server.applyMiddleware({ app, path: '/graphql' });
-
+DB.sequelize.sync({
+  force: false
+});
 const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
 

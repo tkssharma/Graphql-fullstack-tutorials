@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sequelize:create-migration": "sequelize migration:create",
+    "sequelize:create-migration": "sequelize migration:create --name Category",
     "sequelize:migrate": "sequelize db:migrate"
   },
   "repository": {
